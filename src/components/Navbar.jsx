@@ -23,8 +23,20 @@ const Navbar = () => {
     };
   }, []);
 
+  const handleNavLinkClick = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth", // Smooth scroll behavior
+        block: "start" // Scroll to the top of the target element
+      });
+    }
+    // Set active link after scrolling
+    setActive(navLinks.find(nav => nav.id === id)?.title || "Home");
+  };
+
   return (
-    <nav className={`w-full flex py-6 justify-between items-center navbar transition-all duration-500 ease ${isScrolled ?'fixed bg-black top-0 left-0 px-6 z-[9999]  transition-all duration-500 ease' : ''}`}>
+    <nav className={`w-full flex py-6 justify-between items-center navbar transition-all duration-300 ease ${isScrolled ? 'fixed bg-black top-0 left-0 px-6 z-[9999]  transition-all duration-300 ease' : ''}`}>
       <img src={logo} alt="hoobank" className="w-[124px] h-[32px]" />
 
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
@@ -33,7 +45,7 @@ const Navbar = () => {
             key={nav.id}
             className={`font-poppins font-normal cursor-pointer text-[16px] ${active === nav.title ? "text-white" : "text-dimWhite"
               } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
-            onClick={() => setActive(nav.title)}
+            onClick={() => handleNavLinkClick(nav.id)}
           >
             <a href={`#${nav.id}`}>{nav.title}</a>
           </li>
@@ -58,7 +70,7 @@ const Navbar = () => {
                 key={nav.id}
                 className={`font-poppins font-medium cursor-pointer text-[16px] ${active === nav.title ? "text-white" : "text-dimWhite"
                   } ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}`}
-                onClick={() => setActive(nav.title)}
+                onClick={() => handleNavLinkClick(nav.id)}
               >
                 <a href={`#${nav.id}`}>{nav.title}</a>
               </li>
