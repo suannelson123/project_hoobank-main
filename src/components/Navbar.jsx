@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { close, logo, menu } from "../assets";
 import { navLinks } from "../constants";
-
+import styles from "../style";
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
@@ -27,17 +27,19 @@ const Navbar = () => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({
-        behavior: "smooth", // Smooth scroll behavior
-        block: "start" // Scroll to the top of the target element
+        behavior: "smooth",
+        block: "start"
       });
     }
-    // Set active link after scrolling
+
     setActive(navLinks.find(nav => nav.id === id)?.title || "Home");
   };
 
   return (
-    <nav className={`w-full flex py-6 justify-between items-center navbar transition-all duration-300 ease ${isScrolled ? 'fixed bg-black top-0 left-0 px-6 z-[9999]  transition-all duration-300 ease' : ''}`}>
-      <img src={logo} alt="hoobank" className="w-[124px] h-[32px]" />
+    <nav className={` w-full flex py-6 px-6 justify-between items-center navbar transition-all duration-300 ease ${isScrolled ? `fixed bg-black z-[9999] w-full top-0 left-0 px-6 flex  justify-between items-center navbar transition-all duration-300 ease` : ''}`}>
+      <img src={logo} alt="hoobank" className="w-[124px] h-[32px] cursor-pointer" onClick={() => {
+        window.location.href = "#home"
+      }}/>
 
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
         {navLinks.map((nav, index) => (
